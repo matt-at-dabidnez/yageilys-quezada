@@ -1,0 +1,917 @@
+/* ============================================
+   Feliz Día de San Valentín — Yageilys
+   ============================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Great Vibes', cursive;
+}
+
+/* ============================================
+   LAYER 1: Pink Overlay
+   ============================================ */
+
+.pink-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+}
+
+.pink-overlay::before,
+.pink-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #FFB6C1;
+  transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+.pink-overlay::before { left: 0; }
+.pink-overlay::after { right: 0; }
+
+.pink-overlay.reveal::before { transform: translateX(-100%); }
+.pink-overlay.reveal::after { transform: translateX(100%); }
+.pink-overlay.reveal { pointer-events: none; }
+.pink-overlay.reveal .tap-hint { opacity: 0; }
+
+.tap-hint {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #C41E3A;
+  z-index: 101;
+  position: relative;
+  animation: pulse 2s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ============================================
+   LAYER 2: Beach Scene
+   ============================================ */
+
+.beach-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 40%, #E0F7FA 65%, #FFECD2 100%);
+}
+
+.sun {
+  position: absolute;
+  width: clamp(60px, 10vw, 100px);
+  height: clamp(60px, 10vw, 100px);
+  background: radial-gradient(circle, #FFF8DC 0%, #FFD700 40%, #FFA500 100%);
+  border-radius: 50%;
+  top: 12%;
+  right: 18%;
+  box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.3), 0 0 80px 30px rgba(255, 165, 0, 0.15);
+  animation: sun-glow 4s ease-in-out infinite;
+}
+
+@keyframes sun-glow {
+  0%, 100% { box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.3), 0 0 80px 30px rgba(255, 165, 0, 0.15); }
+  50% { box-shadow: 0 0 50px 20px rgba(255, 215, 0, 0.4), 0 0 100px 40px rgba(255, 165, 0, 0.2); }
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  z-index: 2;
+}
+
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  width: clamp(80px, 15vw, 140px);
+  height: clamp(25px, 4vw, 40px);
+  top: 15%;
+  left: 10%;
+  animation: cloud-drift 25s linear infinite;
+}
+.cloud-1::before { width: 50px; height: 40px; top: -20px; left: 20px; }
+.cloud-1::after { width: 40px; height: 30px; top: -12px; left: 55px; }
+
+.cloud-2 {
+  width: clamp(60px, 12vw, 110px);
+  height: clamp(20px, 3vw, 30px);
+  top: 22%;
+  left: 55%;
+  animation: cloud-drift 30s linear infinite;
+  animation-delay: -10s;
+}
+.cloud-2::before { width: 40px; height: 30px; top: -15px; left: 15px; }
+.cloud-2::after { width: 30px; height: 25px; top: -10px; left: 45px; }
+
+@keyframes cloud-drift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100vw); }
+}
+
+/* Ocean */
+.ocean {
+  position: absolute;
+  bottom: 22%;
+  width: 100%;
+  height: 38%;
+  background: linear-gradient(180deg, #4FC3F7 0%, #1E90FF 30%, #0066CC 70%, #004499 100%);
+  z-index: 3;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  border-radius: 45%;
+}
+
+.wave-1 {
+  height: 60px; top: -25px;
+  background: rgba(255, 255, 255, 0.12);
+  animation: wave-drift-1 7s ease-in-out infinite;
+}
+.wave-2 {
+  height: 50px; top: -15px;
+  background: rgba(255, 255, 255, 0.08);
+  animation: wave-drift-2 9s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.wave-3 {
+  height: 40px; top: -8px;
+  background: rgba(255, 255, 255, 0.06);
+  animation: wave-drift-3 11s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+@keyframes wave-drift-1 {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-45%) rotate(1.5deg); }
+}
+@keyframes wave-drift-2 {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-47%) rotate(-1deg); }
+}
+@keyframes wave-drift-3 {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-48%) rotate(0.8deg); }
+}
+
+/* Sand */
+.sand {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 26%;
+  background: linear-gradient(180deg, #F5DEB3 0%, #DEB887 40%, #D2B48C 100%);
+  border-radius: 50% 50% 0 0 / 12% 12% 0 0;
+  z-index: 4;
+}
+
+.sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 215, 0, 0.8);
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite;
+}
+.sparkle-1 { top: 30%; left: 15%; animation-delay: 0s; }
+.sparkle-2 { top: 50%; left: 40%; animation-delay: 0.5s; }
+.sparkle-3 { top: 35%; left: 65%; animation-delay: 1s; }
+.sparkle-4 { top: 60%; left: 80%; animation-delay: 1.5s; }
+.sparkle-5 { top: 45%; left: 30%; animation-delay: 0.8s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Palm Tree */
+.palm-tree {
+  position: absolute;
+  bottom: 20%;
+  left: 8%;
+  z-index: 5;
+}
+
+.trunk {
+  width: 14px;
+  height: clamp(100px, 18vh, 170px);
+  background: linear-gradient(90deg, #6B3A2A, #8B5E3C, #6B3A2A);
+  border-radius: 4px 4px 8px 8px;
+  transform: rotate(-3deg);
+  position: relative;
+}
+
+.trunk::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(0,0,0,0.1) 12px, rgba(0,0,0,0.1) 14px);
+  border-radius: inherit;
+}
+
+.frond {
+  position: absolute;
+  width: clamp(70px, 12vw, 130px);
+  height: 18px;
+  background: linear-gradient(90deg, #228B22, #2E8B2E, #32CD32);
+  border-radius: 0 80% 0 80%;
+  top: -8px;
+  left: 7px;
+  transform-origin: 0% 50%;
+}
+
+.frond-1 { animation: sway-1 4s ease-in-out infinite; }
+.frond-2 { animation: sway-2 4s ease-in-out infinite 0.3s; }
+.frond-3 { animation: sway-3 4s ease-in-out infinite 0.6s; }
+.frond-4 { animation: sway-4 4s ease-in-out infinite 0.9s; }
+
+@keyframes sway-1 {
+  0%, 100% { transform: rotate(-30deg); }
+  50% { transform: rotate(-25deg); }
+}
+@keyframes sway-2 {
+  0%, 100% { transform: rotate(-60deg); }
+  50% { transform: rotate(-55deg); }
+}
+@keyframes sway-3 {
+  0%, 100% { transform: rotate(10deg) scaleY(-1); }
+  50% { transform: rotate(15deg) scaleY(-1); }
+}
+@keyframes sway-4 {
+  0%, 100% { transform: rotate(40deg) scaleY(-1); }
+  50% { transform: rotate(45deg) scaleY(-1); }
+}
+
+/* ============================================
+   LAYER 3: Dominican Flag
+   ============================================ */
+
+.dr-flag-container {
+  position: absolute;
+  bottom: 20%;
+  left: 22%;
+  z-index: 6;
+  /* Container = pole height + flag height */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Flag sits at top of container */
+.dr-flag {
+  position: relative;
+  width: 56px;
+  height: 36px;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  overflow: hidden;
+  animation: flag-wave 3s ease-in-out infinite;
+  transform-origin: left center;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  margin-left: 3px;
+}
+
+/* Pole hangs below the flag */
+.flag-pole {
+  width: 4px;
+  height: 60px;
+  background: linear-gradient(90deg, #999, #ddd, #999);
+  border-radius: 0 0 2px 2px;
+  flex-shrink: 0;
+}
+
+.flag-quadrant { width: 100%; height: 100%; }
+.flag-quadrant.blue { background: #002D62; }
+.flag-quadrant.red { background: #CE1126; }
+
+.flag-cross-h {
+  position: absolute;
+  top: 50%; left: 0;
+  width: 100%; height: 6px;
+  background: white;
+  transform: translateY(-50%);
+}
+
+.flag-cross-v {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 6px; height: 100%;
+  background: white;
+  transform: translateX(-50%);
+}
+
+.flag-emblem {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 10px; height: 10px;
+  background: radial-gradient(circle, #008337 30%, #EAC102 60%, #CE1126 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+@keyframes flag-wave {
+  0%, 100% { transform: perspective(200px) rotateY(0deg) skewY(0deg); }
+  25% { transform: perspective(200px) rotateY(5deg) skewY(1deg); }
+  75% { transform: perspective(200px) rotateY(-3deg) skewY(-0.5deg); }
+}
+
+/* ============================================
+   LAYER 4: Bouquet Container
+   ============================================ */
+
+.bouquet-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bud Button */
+.bud-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bud-button.visible {
+  opacity: 1;
+  transform: scale(1);
+  animation: bud-breathe 2.5s ease-in-out infinite;
+}
+
+.bud-button.fade-out {
+  animation: bud-grow-out 1s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes bud-grow-out {
+  0% { opacity: 1; transform: scale(1); }
+  40% { opacity: 0.8; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+@keyframes bud-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.bud-svg {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+
+.click-hint {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   SVG Rose Bouquet
+   ============================================ */
+
+.bouquet {
+  position: absolute;
+  width: clamp(280px, 65vw, 420px);
+  height: clamp(340px, 70vh, 520px);
+  /* Center within bouquet-container */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.15);
+  /* Start invisible — grows from buds */
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+}
+
+/* Crossfade: bouquet grows FROM the bud position */
+.bouquet.growing {
+  animation: bouquet-emerge 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes bouquet-emerge {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.15);
+  }
+  20% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+  }
+}
+
+/* Rose positioning — fan arrangement */
+.rose {
+  position: absolute;
+  width: clamp(70px, 14vw, 105px);
+  height: clamp(70px, 14vw, 105px);
+}
+
+.rose-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 4px rgba(100, 0, 0, 0.3));
+  position: relative;
+  z-index: 2;
+}
+
+/* Top row */
+.rose-1 { top: 2%;  left: 50%; transform: translateX(-50%); }
+/* Second row */
+.rose-2 { top: 12%; left: 22%; }
+.rose-3 { top: 12%; right: 22%; }
+/* Third row */
+.rose-4 { top: 24%; left: 6%; }
+.rose-5 { top: 22%; left: 50%; transform: translateX(-50%); }
+.rose-6 { top: 24%; right: 6%; }
+/* Accent */
+.rose-7 { top: 34%; left: 50%; transform: translateX(-50%); width: clamp(55px, 11vw, 80px); height: clamp(55px, 11vw, 80px); }
+
+/* --- Per-rose stems (physically attached) --- */
+.stem {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  width: 3.5px;
+  background: linear-gradient(180deg, #2d6b1e, #1a5c10);
+  border-radius: 2px;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
+  z-index: 1;
+}
+
+/* Each rose's stem length varies based on distance to wrapper */
+.rose-1 .stem { height: 280%; }
+.rose-2 .stem { height: 250%; transform: translateX(-50%) rotate(-6deg) scaleY(0); }
+.rose-3 .stem { height: 250%; transform: translateX(-50%) rotate(6deg) scaleY(0); }
+.rose-4 .stem { height: 200%; transform: translateX(-50%) rotate(-12deg) scaleY(0); }
+.rose-5 .stem { height: 230%; }
+.rose-6 .stem { height: 200%; transform: translateX(-50%) rotate(12deg) scaleY(0); }
+.rose-7 .stem { height: 180%; }
+
+/* Stem grow animation */
+.blooming .stem {
+  animation: grow-stem 1s ease-out forwards;
+}
+
+.blooming .rose-1 .stem { animation-delay: 0.1s; }
+.blooming .rose-2 .stem { animation-delay: 0.3s; }
+.blooming .rose-3 .stem { animation-delay: 0.4s; }
+.blooming .rose-4 .stem { animation-delay: 0.6s; }
+.blooming .rose-5 .stem { animation-delay: 0.5s; }
+.blooming .rose-6 .stem { animation-delay: 0.7s; }
+.blooming .rose-7 .stem { animation-delay: 0.9s; }
+
+@keyframes grow-stem {
+  0% { transform: translateX(-50%) var(--stem-rotate, rotate(0deg)) scaleY(0); }
+  100% { transform: translateX(-50%) var(--stem-rotate, rotate(0deg)) scaleY(1); }
+}
+
+.rose-1 .stem { --stem-rotate: rotate(0deg); }
+.rose-2 .stem { --stem-rotate: rotate(-6deg); }
+.rose-3 .stem { --stem-rotate: rotate(6deg); }
+.rose-4 .stem { --stem-rotate: rotate(-12deg); }
+.rose-5 .stem { --stem-rotate: rotate(0deg); }
+.rose-6 .stem { --stem-rotate: rotate(12deg); }
+.rose-7 .stem { --stem-rotate: rotate(0deg); }
+
+/* --- Leaves on stems --- */
+.leaf {
+  position: absolute;
+  width: 22px;
+  height: 10px;
+  background: linear-gradient(135deg, #32CD32, #228B22);
+  border-radius: 0 80% 0 80%;
+  top: 45%;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.leaf-left {
+  right: 100%;
+  margin-right: 1px;
+  transform-origin: right center;
+}
+
+.leaf-right {
+  left: 100%;
+  margin-left: 1px;
+  border-radius: 80% 0 80% 0;
+  transform-origin: left center;
+}
+
+.blooming .leaf {
+  animation: unfurl-leaf 0.5s ease-out forwards;
+  animation-delay: 1.8s;
+}
+
+@keyframes unfurl-leaf {
+  0% { opacity: 0; transform: scale(0) rotate(0deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+}
+
+/* --- SVG petal bloom within each rose --- */
+.rose-svg .petal-outer,
+.rose-svg .petal-mid,
+.rose-svg .petal-inner,
+.rose-svg .rose-center-circle {
+  opacity: 0;
+  transform-origin: 50px 50px;
+  transform: scale(0) rotate(0deg);
+}
+
+.blooming .rose-svg .petal-outer {
+  animation: svg-petal-bloom 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.blooming .rose-svg .petal-mid {
+  animation: svg-petal-bloom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.4s;
+}
+
+.blooming .rose-svg .petal-inner {
+  animation: svg-petal-bloom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.7s;
+}
+
+.blooming .rose-svg .rose-center-circle {
+  animation: svg-petal-bloom 0.4s ease-out forwards;
+  animation-delay: 1.0s;
+}
+
+@keyframes svg-petal-bloom {
+  0% { opacity: 0; transform: scale(0) rotate(-30deg); transform-origin: 50px 50px; }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); transform-origin: 50px 50px; }
+}
+
+/* Wrapper */
+.wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72%;
+  height: 38%;
+  opacity: 0;
+}
+
+.wrapper-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #FFEFD5 0%, #FFE4B5 30%, #F5DEB3 60%, #EAC102 100%);
+  clip-path: polygon(18% 0%, 82% 0%, 100% 100%, 0% 100%);
+  border-radius: 0 0 8px 8px;
+}
+
+.blooming .wrapper {
+  animation: show-wrapper 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes show-wrapper {
+  0% { opacity: 0; transform: translateX(-50%) scaleY(0.3); }
+  100% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+}
+
+.wrapper-ribbon {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55%;
+  height: 8px;
+  background: #C41E3A;
+  border-radius: 4px;
+}
+
+.wrapper-ribbon::before,
+.wrapper-ribbon::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 22px;
+  background: #C41E3A;
+  top: 8px;
+  border-radius: 0 0 50% 50%;
+}
+.wrapper-ribbon::before { left: 35%; transform: rotate(-15deg); }
+.wrapper-ribbon::after { right: 35%; transform: rotate(15deg); }
+
+/* ============================================
+   LAYER 5: Combined Name + Message
+   ============================================ */
+
+.love-text {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 750px;
+  text-align: center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.love-text.hidden { display: none; }
+
+.love-text.visible {
+  opacity: 1;
+}
+
+/* Name — bigger, enters first with slow fade */
+.name-line {
+  margin-bottom: 0.4em;
+  opacity: 0;
+}
+
+.name-line.visible {
+  animation: name-fade-in 2.5s ease-out forwards;
+}
+
+.name-text {
+  font-family: 'Pinyon Script', 'Great Vibes', cursive;
+  font-size: clamp(2rem, 7vw, 4rem);
+  color: #fff;
+  text-shadow:
+    0 0 10px rgba(196, 30, 58, 0.8),
+    0 0 30px rgba(196, 30, 58, 0.5),
+    0 0 60px rgba(196, 30, 58, 0.3),
+    3px 3px 6px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+@keyframes name-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.9);
+    letter-spacing: 0.15em;
+  }
+  50% {
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Glow pulse after name settles */
+.name-line.glow .name-text {
+  animation: name-glow 3s ease-in-out infinite;
+}
+
+@keyframes name-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(196, 30, 58, 0.8),
+      0 0 30px rgba(196, 30, 58, 0.5),
+      0 0 60px rgba(196, 30, 58, 0.3),
+      3px 3px 6px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 15px rgba(255, 107, 129, 1),
+      0 0 40px rgba(255, 107, 129, 0.7),
+      0 0 80px rgba(196, 30, 58, 0.5),
+      3px 3px 6px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Message — smaller, typewriter below name */
+.message-line {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.message-line.visible {
+  opacity: 1;
+}
+
+.message-text {
+  font-family: 'Pinyon Script', 'Great Vibes', cursive;
+  font-size: clamp(1.6rem, 5.5vw, 2.8rem);
+  color: #FFFFFF;
+  text-shadow:
+    2px 2px 8px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 107, 129, 0.5),
+    0 0 40px rgba(196, 30, 58, 0.3);
+  line-height: 1.5;
+}
+
+.cursor {
+  font-family: monospace;
+  font-size: clamp(1.6rem, 5.5vw, 2.8rem);
+  color: #FFD700;
+  animation: blink-cursor 0.75s step-end infinite;
+}
+
+.cursor.fade { animation: fade-cursor 1s ease-out forwards; }
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fade-cursor {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ============================================
+   Floating Hearts
+   ============================================ */
+
+.hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.floating-heart {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0;
+  animation: float-heart 4s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes float-heart {
+  0% { opacity: 1; transform: translateY(0) scale(0.5) rotate(0deg); }
+  50% { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-50vh) scale(1.2) rotate(20deg); }
+}
+
+/* ============================================
+   Vignette & Mute
+   ============================================ */
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+  z-index: 12;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.vignette.active { opacity: 1; }
+
+.mute-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.3);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, background 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.mute-btn.hidden { opacity: 0; pointer-events: none; }
+.mute-btn.visible { opacity: 1; pointer-events: auto; }
+.mute-btn:hover { background: rgba(0,0,0,0.5); }
+.mute-btn.muted .mute-icon { opacity: 0.4; }
+
+/* ============================================
+   Responsive — iPhone 16 primary target (393x852)
+   ============================================ */
+
+/* Safe area for notch/dynamic island */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .mute-btn {
+    top: calc(15px + env(safe-area-inset-top));
+  }
+}
+
+@media (max-width: 768px) {
+  .bouquet { width: 260px; height: 340px; }
+  .rose { width: 60px; height: 60px; }
+  .rose-7 { width: 48px; height: 48px; }
+  .dr-flag-container { left: 18%; bottom: 16%; }
+  .dr-flag { width: 45px; height: 29px; }
+  .flag-pole { height: 50px; }
+  .palm-tree { left: 5%; }
+}
+
+/* iPhone 16 and similar (390-393px wide) */
+@media (max-width: 430px) {
+  .bouquet-container { top: 44%; }
+  .bouquet { width: 230px; height: 280px; }
+  .rose { width: 52px; height: 52px; }
+  .rose-7 { width: 42px; height: 42px; }
+
+  .love-text { top: 3%; width: 94%; }
+  .name-text { font-size: clamp(1.7rem, 6.5vw, 2.8rem); }
+  .message-text { font-size: clamp(1.3rem, 4.5vw, 2rem); }
+  .cursor { font-size: clamp(1.3rem, 4.5vw, 2rem); }
+
+  .tap-hint { font-size: 1.6rem; }
+  .bud-svg { width: 100px; height: 140px; }
+  .click-hint { font-size: 1.1rem; }
+
+  .dr-flag-container { left: 16%; bottom: 15%; }
+  .dr-flag { width: 40px; height: 26px; }
+  .flag-pole { height: 45px; }
+  .flag-cross-h { height: 5px; }
+  .flag-cross-v { width: 5px; }
+
+  .palm-tree { left: 4%; }
+  .trunk { height: 110px; }
+  .frond { width: 80px; height: 14px; }
+
+  .mute-btn { width: 36px; height: 36px; font-size: 16px; }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+  .bouquet { width: 200px; height: 260px; }
+  .rose { width: 46px; height: 46px; }
+  .rose-7 { width: 36px; height: 36px; }
+  .name-text { font-size: 1.5rem; }
+  .message-text { font-size: 1.1rem; }
+}
+
+/* Landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+  .bouquet-container { top: 42%; }
+  .bouquet { width: 180px; height: 220px; }
+  .rose { width: 42px; height: 42px; }
+  .love-text { top: 2%; }
+  .name-text { font-size: 1.3rem; }
+  .message-text { font-size: 1rem; }
+}

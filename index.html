@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Día de San Valentín, Yageilys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Great+Vibes&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- LAYER 1: Pink overlay -->
+  <div id="pink-overlay" class="pink-overlay">
+    <p class="tap-hint">Toca para comenzar</p>
+  </div>
+
+  <!-- LAYER 2: Beach scene -->
+  <div class="beach-scene">
+    <div class="sky"></div>
+    <div class="sun"></div>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="ocean">
+      <div class="wave wave-1"></div>
+      <div class="wave wave-2"></div>
+      <div class="wave wave-3"></div>
+    </div>
+    <div class="sand">
+      <div class="sparkle sparkle-1"></div>
+      <div class="sparkle sparkle-2"></div>
+      <div class="sparkle sparkle-3"></div>
+      <div class="sparkle sparkle-4"></div>
+      <div class="sparkle sparkle-5"></div>
+    </div>
+    <div class="palm-tree">
+      <div class="trunk"></div>
+      <div class="frond frond-1"></div>
+      <div class="frond frond-2"></div>
+      <div class="frond frond-3"></div>
+      <div class="frond frond-4"></div>
+    </div>
+  </div>
+
+  <!-- LAYER 3: Dominican flag (flag on top, pole below) -->
+  <div class="dr-flag-container">
+    <div class="dr-flag">
+      <div class="flag-quadrant blue top-left"></div>
+      <div class="flag-quadrant red top-right"></div>
+      <div class="flag-quadrant red bottom-left"></div>
+      <div class="flag-quadrant blue bottom-right"></div>
+      <div class="flag-cross-h"></div>
+      <div class="flag-cross-v"></div>
+      <div class="flag-emblem"></div>
+    </div>
+    <div class="flag-pole"></div>
+  </div>
+
+  <!-- LAYER 4: Bouquet container -->
+  <div class="bouquet-container">
+    <!-- Bud button -->
+    <button id="bloom-btn" class="bud-button">
+      <svg class="bud-svg" viewBox="0 0 120 160" width="120" height="160">
+        <!-- Stems -->
+        <line x1="60" y1="70" x2="60" y2="150" stroke="#2d6b1e" stroke-width="3" stroke-linecap="round"/>
+        <line x1="38" y1="75" x2="42" y2="145" stroke="#2d6b1e" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="82" y1="75" x2="78" y2="145" stroke="#2d6b1e" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Bud 1 center -->
+        <ellipse cx="60" cy="48" rx="9" ry="22" fill="url(#budGrad)"/>
+        <path d="M51 58 Q60 52 69 58 Q65 65 60 68 Q55 65 51 58Z" fill="#1e7a12"/>
+        <!-- Bud 2 left -->
+        <ellipse cx="38" cy="52" rx="8" ry="20" fill="url(#budGrad)" transform="rotate(-10 38 52)"/>
+        <path d="M30 61 Q38 55 46 61 Q43 67 38 69 Q33 67 30 61Z" fill="#1e7a12"/>
+        <!-- Bud 3 right -->
+        <ellipse cx="82" cy="52" rx="8" ry="20" fill="url(#budGrad)" transform="rotate(10 82 52)"/>
+        <path d="M74 61 Q82 55 90 61 Q87 67 82 69 Q77 67 74 61Z" fill="#1e7a12"/>
+        <defs>
+          <linearGradient id="budGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8364f"/>
+            <stop offset="50%" stop-color="#c41e3a"/>
+            <stop offset="100%" stop-color="#8b0000"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="click-hint">tócame</span>
+    </button>
+
+    <!-- Rose bouquet (starts invisible, grows from buds) -->
+    <div id="bouquet" class="bouquet">
+      <!-- 7 SVG roses — each has its own stem via ::after -->
+      <div class="rose rose-1"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"></div></div>
+      <div class="rose rose-2"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"><div class="leaf leaf-left"></div></div></div>
+      <div class="rose rose-3"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"><div class="leaf leaf-right"></div></div></div>
+      <div class="rose rose-4"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"><div class="leaf leaf-left"></div></div></div>
+      <div class="rose rose-5"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"></div></div>
+      <div class="rose rose-6"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"><div class="leaf leaf-right"></div></div></div>
+      <div class="rose rose-7"><svg viewBox="0 0 100 100" class="rose-svg"></svg><div class="stem"></div></div>
+
+      <!-- Wrapper -->
+      <div class="wrapper">
+        <div class="wrapper-inner"></div>
+        <div class="wrapper-ribbon"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 5: Combined name + message -->
+  <div id="love-text" class="love-text hidden">
+    <div class="name-line">
+      <span id="name-text" class="name-text"></span>
+    </div>
+    <div class="message-line">
+      <span id="message-text" class="message-text"></span>
+      <span class="cursor">|</span>
+    </div>
+  </div>
+
+  <!-- Hearts container -->
+  <div id="hearts-container" class="hearts-container"></div>
+
+  <!-- Vignette -->
+  <div class="vignette"></div>
+
+  <!-- Mute toggle -->
+  <button id="mute-btn" class="mute-btn hidden" aria-label="Silenciar música">
+    <span class="mute-icon">&#9835;</span>
+  </button>
+
+  <!-- Audio -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="assets/obsesion.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
