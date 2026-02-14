@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
               document.querySelector('.cursor').classList.add('fade');
             }, 1500);
             spawnHearts(10);
+
+            // Love letter — types line by line after main message
+            setTimeout(() => typeLoveLetter(), 2500);
           });
         }, 600);
       });
@@ -110,6 +113,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }, speed);
     });
+  }
+
+  /* -----------------------------------------
+     Love Letter — sequential typewriter
+     ----------------------------------------- */
+  const letterLines = [
+    'Desde que te conocí... me robaste el corazón.',
+    'Recuerdo nuestra primera cita, donde todo salió mal... pero aún así te hice reír.',
+    'Eso es todo lo que quiero... hacerte reír y ser feliz.',
+    'Quiero criar hijos juntos... quiero toda una vida contigo.',
+    'Ahora mismo... esto es todo lo que puedo darte... pero tú mereces el mundo entero.',
+    'Con todo mi amor, Matthew Rizaldi',
+    'Gracias por llegar a mi vida. Te amo.'
+  ];
+
+  async function typeLoveLetter() {
+    const scroll = document.getElementById('love-letter');
+    scroll.classList.add('unrolling');
+
+    for (let i = 0; i < letterLines.length; i++) {
+      const el = document.getElementById(`letter-${i}`);
+      el.classList.add('visible');
+
+      // Grow scroll to fit content as each line types
+      scroll.style.maxHeight = scroll.scrollHeight + 80 + 'px';
+
+      await typeMessage(el, letterLines[i], 60);
+
+      // Re-measure after text is fully typed
+      scroll.style.maxHeight = scroll.scrollHeight + 40 + 'px';
+
+      // Pause between lines
+      await new Promise(r => setTimeout(r, 800));
+      if (i === 4) spawnHearts(8);
+    }
+    // Final expand to ensure all content visible
+    scroll.style.maxHeight = scroll.scrollHeight + 40 + 'px';
+    spawnHearts(15);
   }
 
   /* -----------------------------------------
